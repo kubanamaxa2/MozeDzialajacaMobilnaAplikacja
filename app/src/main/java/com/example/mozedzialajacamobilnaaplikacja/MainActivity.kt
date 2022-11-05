@@ -2,6 +2,7 @@ package com.example.mozedzialajacamobilnaaplikacja
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.webkit.WebView.FindListener
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         fun LIFO(){
             textwidze.text = stos.peek()
             findViewById<Button>(R.id.button).setOnClickListener {
-                stos.push(textwidze.text.toString())
+                stos.push(findViewById<EditText>(R.id.editTextTextPersonName).text.toString())
                 textwidze.text = stos.peek()
             }
             findViewById<Button>(R.id.button2).setOnClickListener {
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 else{
                     textwidze.text = " "
                 }
-
+                textwidze.text = stos.peek()
             }
         }
         fun FIFO(){
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             findViewById<Button>(R.id.button2).setOnClickListener {
             if(kolejka.isNotEmpty()){
                 kolejka.removeFirst()
+                textwidze.text = kolejka.first
                 if(kolejka.isEmpty()){
                     textwidze.text = ""
                 }
@@ -52,17 +54,20 @@ class MainActivity : AppCompatActivity() {
                     textwidze.text = kolejka.first
                 }
             }
-            else{
+            else {
                 textwidze.text = ""
             }
             }
             findViewById<Button>(R.id.button).setOnClickListener {
-                kolejka.addLast(findViewById<EditText>(R.id.editTextTextPersonName).toString())
+                kolejka.addLast(findViewById<EditText>(R.id.editTextTextPersonName).text.toString())
                 textwidze.text = kolejka.first
             }
         }
         findViewById<RadioButton>(R.id.radioButton).setOnClickListener{
-            
+            FIFO()
+        }
+        findViewById<RadioButton>(R.id.radioButton2).setOnClickListener {
+            LIFO()
         }
     }
 }
